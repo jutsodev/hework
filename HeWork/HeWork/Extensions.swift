@@ -14,18 +14,24 @@ extension Color {
         self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255, opacity: Double(a) / 255)
     }
 
-    static let appBackground = Color(hex: "0D0D0D")
+    // MARK: - Black & White Palette
+    static let appBackground = Color(hex: "000000")
     static let appCard = Color(hex: "1A1A1A")
-    static let appCardLight = Color(hex: "252525")
+    static let appCardLight = Color(hex: "2A2A2A")
     static let appTextPrimary = Color.white
-    static let appTextSecondary = Color(hex: "999999")
-    static let appAccent = Color(hex: "007AFF")
-    static let appPurple = Color(hex: "9C27B0")
-    static let appPink = Color(hex: "E91E63")
-    static let appRed = Color(hex: "FF3B30")
-    static let appGreen = Color(hex: "34C759")
-    static let appMessageOutgoing = Color(hex: "1C1C1E")
-    static let appMessageIncoming = Color(hex: "6C3480")
+    static let appTextSecondary = Color(hex: "888888")
+    static let appAccent = Color.white
+    static let appAccentDim = Color(hex: "666666")
+    static let appRed = Color(hex: "CCCCCC")
+    static let appGreen = Color.white
+    static let appMessageOutgoing = Color.white
+    static let appMessageOutgoingText = Color.black
+    static let appMessageIncoming = Color(hex: "1C1C1E")
+    static let appMessageIncomingText = Color.white
+    static let appDivider = Color.white.opacity(0.08)
+    static let appBorder = Color.white.opacity(0.12)
+    static let appBadge = Color.white
+    static let appBadgeText = Color.black
 }
 
 extension Date {

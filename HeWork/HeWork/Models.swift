@@ -62,9 +62,9 @@ struct AppTheme: Codable {
     var wallpaperName: String?
 
     static let `default` = AppTheme(
-        messageGradientStart: "#9C27B0",
-        messageGradientEnd: "#E91E63",
-        accentColor: "#007AFF",
+        messageGradientStart: "#FFFFFF",
+        messageGradientEnd: "#CCCCCC",
+        accentColor: "#FFFFFF",
         isDarkMode: true,
         wallpaperName: nil
     )

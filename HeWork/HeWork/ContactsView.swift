@@ -35,7 +35,7 @@ struct ContactRow: View {
                 Circle().fill(Color.appCardLight).frame(width: 48, height: 48)
                     .overlay(Text(String(name.prefix(1))).font(.system(size: 20, weight: .semibold)).foregroundColor(.white))
                 if isOnline {
-                    Circle().fill(Color.appGreen).frame(width: 12, height: 12)
+                    Circle().fill(Color.white).frame(width: 12, height: 12)
                         .overlay(Circle().stroke(Color.appBackground, lineWidth: 2))
                 }
             }

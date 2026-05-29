@@ -28,19 +28,19 @@ struct ChatDetailView: View {
 
                 HStack(alignment: .bottom, spacing: 8) {
                     Button(action: {}) {
-                        Image(systemName: "plus.circle.fill").font(.system(size: 28)).foregroundColor(.appAccent)
+                        Image(systemName: "plus.circle.fill").font(.system(size: 28)).foregroundColor(.appTextSecondary)
                     }
                     TextField("Сообщение...", text: $messageText, axis: .vertical)
                         .font(.system(size: 15)).foregroundColor(.white).lineLimit(1...5)
                         .padding(.horizontal, 14).padding(.vertical, 10)
                         .background(Color.appCard).cornerRadius(20)
-                        .overlay(Capsule().stroke(Color.white.opacity(0.08), lineWidth: 0.5))
+                        .overlay(Capsule().stroke(Color.appBorder, lineWidth: 0.5))
                     Button(action: {
                         if !messageText.isEmpty { chatViewModel.sendMessage(text: messageText); messageText = "" }
                     }) {
                         Image(systemName: "arrow.up.circle.fill")
                             .font(.system(size: 32))
-                            .foregroundColor(messageText.isEmpty ? .appTextSecondary : .appAccent)
+                            .foregroundColor(messageText.isEmpty ? .appTextSecondary : .white)
                     }
                     .disabled(messageText.isEmpty)
                 }
@@ -66,16 +66,17 @@ struct MessageBubble: View {
             if isOutgoing { Spacer(minLength: 60) }
             VStack(alignment: isOutgoing ? .trailing : .leading, spacing: 4) {
                 Text(message.text)
-                    .font(.system(size: 15)).foregroundColor(.white)
+                    .font(.system(size: 15))
+                    .foregroundColor(isOutgoing ? .appMessageOutgoingText : .appMessageIncomingText)
                     .padding(.horizontal, 14).padding(.vertical, 10)
                     .background(
                         Group {
                             if isOutgoing {
-                                RoundedRectangle(cornerRadius: 18).fill(themeManager.messageGradient)
+                                RoundedRectangle(cornerRadius: 18).fill(Color.appMessageOutgoing)
                             } else {
                                 RoundedRectangle(cornerRadius: 18)
-                                    .fill(Color.appMessageOutgoing)
-                                    .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.white.opacity(0.08), lineWidth: 0.5))
+                                    .fill(Color.appMessageIncoming)
+                                    .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.appBorder, lineWidth: 0.5))
                             }
                         }
                     )
@@ -88,7 +89,7 @@ struct MessageBubble: View {
                     Text(message.timestamp.timeString).font(.system(size: 11)).foregroundColor(.appTextSecondary)
                     if isOutgoing {
                         Image(systemName: message.isRead ? "checkmark.circle.fill" : "checkmark.circle")
-                            .font(.system(size: 12)).foregroundColor(message.isRead ? .appAccent : .appTextSecondary)
+                            .font(.system(size: 12)).foregroundColor(message.isRead ? .white : .appTextSecondary)
                     }
                 }.padding(.horizontal, 4)
             }

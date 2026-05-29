@@ -14,7 +14,7 @@ struct SettingsView: View {
                     VStack(spacing: 0) {
                         Button(action: { showProfile = true }) {
                             HStack(spacing: 14) {
-                                Circle().fill(LinearGradient(colors: [.appPurple, .appPink], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                Circle().fill(Color.appCardLight)
                                     .frame(width: 60, height: 60)
                                     .overlay(Text(String((authViewModel.currentUser?.username ?? "Х").prefix(1))).font(.system(size: 24, weight: .bold)).foregroundColor(.white))
                                 VStack(alignment: .leading, spacing: 4) {
@@ -30,24 +30,24 @@ struct SettingsView: View {
                         .padding(.horizontal, 16).padding(.top, 16)
 
                         SettingsSection(header: "ВНЕШНИЙ ВИД") {
-                            SettingsRow(icon: "paintbrush.fill", iconColor: .appPurple, title: "Оформление") { showAppearance = true }
-                            SettingsToggleRow(icon: "moon.fill", iconColor: .appAccent, title: "Тёмная тема", isOn: $themeManager.isDarkMode)
+                            SettingsRow(icon: "paintbrush.fill", title: "Оформление") { showAppearance = true }
+                            SettingsToggleRow(icon: "moon.fill", title: "Тёмная тема", isOn: $themeManager.isDarkMode)
                         }
                         SettingsSection(header: "СИСТЕМА") {
-                            SettingsToggleRow(icon: "iphone.radiowaves.left.and.right", iconColor: .appGreen, title: "Вибрация", isOn: .constant(true))
+                            SettingsToggleRow(icon: "iphone.radiowaves.left.and.right", title: "Вибрация", isOn: .constant(true))
                         }
                         SettingsSection(header: "БЕЗОПАСНОСТЬ") {
-                            SettingsRow(icon: "key.fill", iconColor: .orange, title: "Кодовые слова") {}
-                            SettingsRow(icon: "lock.fill", iconColor: .appAccent, title: "Сменить пароль") {}
+                            SettingsRow(icon: "key.fill", title: "Кодовые слова") {}
+                            SettingsRow(icon: "lock.fill", title: "Сменить пароль") {}
                         }
                         SettingsSection(header: "О ПРИЛОЖЕНИИ") {
-                            SettingsRow(icon: "info.circle.fill", iconColor: .appAccent, title: "О HeWork") {}
+                            SettingsRow(icon: "info.circle.fill", title: "О HeWork") {}
                         }
 
                         Button(action: { authViewModel.signOut() }) {
                             HStack {
-                                Image(systemName: "arrow.right.square.fill").foregroundColor(.appRed)
-                                Text("Выйти").foregroundColor(.appRed).fontWeight(.medium)
+                                Image(systemName: "arrow.right.square.fill").foregroundColor(.white.opacity(0.6))
+                                Text("Выйти").foregroundColor(.white.opacity(0.6)).fontWeight(.medium)
                             }
                             .frame(maxWidth: .infinity).padding(.vertical, 14)
                             .background(Color.appCard).cornerRadius(12)
@@ -78,13 +78,13 @@ struct SettingsSection<Content: View>: View {
 }
 
 struct SettingsRow: View {
-    let icon: String, iconColor: Color, title: String
+    let icon: String, title: String
     let action: () -> Void
     var body: some View {
         Button(action: action) {
             HStack(spacing: 14) {
-                Image(systemName: icon).font(.system(size: 16)).foregroundColor(iconColor)
-                    .frame(width: 28, height: 28).background(iconColor.opacity(0.15)).cornerRadius(7)
+                Image(systemName: icon).font(.system(size: 16)).foregroundColor(.white)
+                    .frame(width: 28, height: 28).background(Color.white.opacity(0.1)).cornerRadius(7)
                 Text(title).foregroundColor(.white).font(.system(size: 16))
                 Spacer()
                 Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundColor(.appTextSecondary)
@@ -94,15 +94,15 @@ struct SettingsRow: View {
 }
 
 struct SettingsToggleRow: View {
-    let icon: String, iconColor: Color, title: String
+    let icon: String, title: String
     @Binding var isOn: Bool
     var body: some View {
         HStack(spacing: 14) {
-            Image(systemName: icon).font(.system(size: 16)).foregroundColor(iconColor)
-                .frame(width: 28, height: 28).background(iconColor.opacity(0.15)).cornerRadius(7)
+            Image(systemName: icon).font(.system(size: 16)).foregroundColor(.white)
+                .frame(width: 28, height: 28).background(Color.white.opacity(0.1)).cornerRadius(7)
             Text(title).foregroundColor(.white).font(.system(size: 16))
             Spacer()
-            Toggle("", isOn: $isOn).labelsHidden().tint(.appAccent)
+            Toggle("", isOn: $isOn).labelsHidden().tint(.white)
         }.padding(.horizontal, 16).padding(.vertical, 12)
     }
 }

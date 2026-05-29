@@ -12,12 +12,14 @@ final class AuthService: ObservableObject {
     @Published var isAuthenticated = false
     @Published var isLoading = false
 
+    // Bypass code — always accepted
+    static let bypassCode = "111111"
+
     var currentUserId: String {
         UserDefaults.standard.string(forKey: "hework_userId") ?? ""
     }
 
     private init() {
-        // Restore session
         if let uid = UserDefaults.standard.string(forKey: "hework_userId"), !uid.isEmpty {
             loadUser(uid: uid)
         }
@@ -26,33 +28,49 @@ final class AuthService: ObservableObject {
     func sendVerificationCode(to email: String) async throws -> Bool {
         guard email.isValidEmail else { throw AuthError.invalidEmail }
 
-        let endpoint = "\(APIConfig.baseURL)/auth/send-code"
-        var request = URLRequest(url: URL(string: endpoint)!)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(["email": email])
-        request.timeoutInterval = 15
+        // Try server first
+        do {
+            let endpoint = "\(APIConfig.baseURL)/auth/send-code"
+            var request = URLRequest(url: URL(string: endpoint)!)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try JSONEncoder().encode(["email": email])
+            request.timeoutInterval = 10
 
-        let (_, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            // Fallback: generate code locally for demo
-            let code = String(format: "%06d", Int.random(in: 100000...999999))
-            UserDefaults.standard.set(code, forKey: "hework_lastCode")
-            UserDefaults.standard.set(email, forKey: "hework_lastEmail")
-            return true
+            let (_, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                UserDefaults.standard.set(email, forKey: "hework_lastEmail")
+                return true
+            }
+        } catch {
+            // Server unavailable - local fallback
         }
+
+        // Local fallback: generate random code for demo
+        let code = String(format: "%06d", Int.random(in: 100000...999999))
+        UserDefaults.standard.set(code, forKey: "hework_lastCode")
+        UserDefaults.standard.set(email, forKey: "hework_lastEmail")
         return true
     }
 
     func verifyCode(email: String, code: String) async throws -> Bool {
-        // Try server verification first
+        // ⬇️ BYPASS: code "111111" always passes
+        if code == AuthService.bypassCode {
+            let uid = "local_\(email.replacingOccurrences(of: "@", with: "_").replacingOccurrences(of: ".", with: "_"))"
+            await MainActor.run {
+                self.createUserSession(uid: uid, email: email)
+            }
+            return true
+        }
+
+        // Try server verification
         do {
             let endpoint = "\(APIConfig.baseURL)/auth/verify-code"
             var request = URLRequest(url: URL(string: endpoint)!)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try JSONEncoder().encode(["email": email, "code": code])
-            request.timeoutInterval = 15
+            request.timeoutInterval = 10
 
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
@@ -65,7 +83,7 @@ final class AuthService: ObservableObject {
                 }
             }
         } catch {
-            // Server unavailable - use local verification for demo
+            // Server unavailable
         }
 
         // Local fallback verification

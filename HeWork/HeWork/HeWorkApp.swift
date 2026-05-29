@@ -7,7 +7,6 @@ struct HeWorkApp: App {
     @StateObject private var themeManager = ThemeManager()
 
     init() {
-        // Configure notification delegate
         UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
     }
 

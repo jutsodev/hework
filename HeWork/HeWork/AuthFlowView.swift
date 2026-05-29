@@ -25,7 +25,7 @@ struct EmailEntryView: View {
             VStack(spacing: 16) {
                 Image(systemName: "bubble.left.and.bubble.right.fill")
                     .font(.system(size: 64))
-                    .foregroundStyle(LinearGradient(colors: [.appPurple, .appPink], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .foregroundColor(.white)
                 Text("HeWork")
                     .font(.system(size: 42, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
@@ -42,7 +42,7 @@ struct EmailEntryView: View {
                         .padding(.leading, 4)
                     HStack(spacing: 12) {
                         Image(systemName: "envelope.fill")
-                            .foregroundColor(.appAccent)
+                            .foregroundColor(.white)
                         TextField("example@mail.com", text: $authViewModel.email)
                             .foregroundColor(.white)
                             .keyboardType(.emailAddress)
@@ -54,28 +54,28 @@ struct EmailEntryView: View {
                     .padding()
                     .background(Color.appCard)
                     .cornerRadius(14)
-                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(isEmailFocused ? Color.appAccent : Color.white.opacity(0.1), lineWidth: 1))
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(isEmailFocused ? Color.white : Color.appBorder, lineWidth: 1))
                 }
 
                 if let error = authViewModel.errorMessage {
                     HStack(spacing: 6) {
-                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.appRed)
-                        Text(error).font(.caption).foregroundColor(.appRed)
+                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.white)
+                        Text(error).font(.caption).foregroundColor(.white.opacity(0.7))
                     }.padding(.leading, 4)
                 }
 
                 Button(action: { authViewModel.sendVerificationCode() }) {
                     HStack {
                         if authViewModel.isLoading {
-                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
                         } else {
-                            Text("Получить код").fontWeight(.semibold)
+                            Text("Получить код").fontWeight(.semibold).foregroundColor(.black)
                         }
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
-                    .background(LinearGradient(colors: [.appPurple, .appPink], startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.white)
+                    .background(Color.white)
+                    .foregroundColor(.black)
                     .cornerRadius(14)
                 }
                 .disabled(authViewModel.isLoading || authViewModel.email.isEmpty)
@@ -88,9 +88,9 @@ struct EmailEntryView: View {
             VStack(spacing: 8) {
                 Text("Нажимая кнопку, вы соглашаетесь с").font(.caption2).foregroundColor(.appTextSecondary)
                 HStack(spacing: 4) {
-                    Button("Условиями использования") {}.font(.caption2).foregroundColor(.appAccent)
+                    Button("Условиями использования") {}.font(.caption2).foregroundColor(.white.opacity(0.6))
                     Text("и").font(.caption2).foregroundColor(.appTextSecondary)
-                    Button("Политикой конфиденциальности") {}.font(.caption2).foregroundColor(.appAccent)
+                    Button("Политикой конфиденциальности") {}.font(.caption2).foregroundColor(.white.opacity(0.6))
                 }
             }.padding(.bottom, 32)
         }
@@ -109,7 +109,7 @@ struct VerificationCodeView: View {
             VStack(spacing: 12) {
                 Image(systemName: "shield.checkered")
                     .font(.system(size: 48))
-                    .foregroundColor(.appAccent)
+                    .foregroundColor(.white)
                 Text("Подтверждение")
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
@@ -131,7 +131,7 @@ struct VerificationCodeView: View {
                             .frame(width: 48, height: 56)
                             .background(Color.appCard)
                             .cornerRadius(12)
-                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(focusedIndex == index ? Color.appAccent : Color.white.opacity(0.1), lineWidth: 1.5))
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(focusedIndex == index ? Color.white : Color.appBorder, lineWidth: 1.5))
                             .focused($isCodeFocused)
                             .onChange(of: codeDigits[index]) { _, newValue in
                                 if newValue.count > 1 { codeDigits[index] = String(newValue.last ?? Character("")) }
@@ -141,8 +141,8 @@ struct VerificationCodeView: View {
 
                 if let error = authViewModel.errorMessage {
                     HStack(spacing: 6) {
-                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.appRed)
-                        Text(error).font(.caption).foregroundColor(.appRed)
+                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.white)
+                        Text(error).font(.caption).foregroundColor(.white.opacity(0.7))
                     }
                 }
 
@@ -152,15 +152,15 @@ struct VerificationCodeView: View {
                 }) {
                     HStack {
                         if authViewModel.isLoading {
-                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
                         } else {
-                            Text("Подтвердить").fontWeight(.semibold)
+                            Text("Подтвердить").fontWeight(.semibold).foregroundColor(.black)
                         }
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
-                    .background(LinearGradient(colors: [.appPurple, .appPink], startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.white)
+                    .background(Color.white)
+                    .foregroundColor(.black)
                     .cornerRadius(14)
                 }
                 .disabled(authViewModel.isLoading || codeDigits.joined().count < 6)
@@ -174,7 +174,7 @@ struct VerificationCodeView: View {
                         .font(.caption).foregroundColor(.appTextSecondary)
                 } else {
                     Button(action: { authViewModel.sendVerificationCode() }) {
-                        Text("Отправить код повторно").font(.caption).foregroundColor(.appAccent)
+                        Text("Отправить код повторно").font(.caption).foregroundColor(.white.opacity(0.6))
                     }
                 }
                 Button(action: { withAnimation { authViewModel.codeSent = false; authViewModel.errorMessage = nil } }) {

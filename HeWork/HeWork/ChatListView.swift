@@ -16,12 +16,11 @@ struct ChatListView: View {
                         Spacer()
                         Button(action: { showNewChat = true }) {
                             Image(systemName: "square.and.pencil")
-                                .font(.system(size: 20)).foregroundColor(.appAccent)
+                                .font(.system(size: 20)).foregroundColor(.white)
                         }
                     }
                     .padding(.horizontal, 20).padding(.top, 16).padding(.bottom, 4)
 
-                    // Search
                     HStack(spacing: 10) {
                         Image(systemName: "magnifyingglass").foregroundColor(.appTextSecondary)
                         TextField("Поиск", text: $chatViewModel.searchText).foregroundColor(.white)
@@ -64,7 +63,7 @@ struct ChatListRow: View {
     var body: some View {
         HStack(spacing: 12) {
             Circle()
-                .fill(LinearGradient(colors: [.appPurple, .appPink], startPoint: .topLeading, endPoint: .bottomTrailing))
+                .fill(Color.appCardLight)
                 .frame(width: 52, height: 52)
                 .overlay(Text(String((chat.groupName ?? "Г").prefix(1))).font(.system(size: 20, weight: .bold)).foregroundColor(.white))
 
@@ -78,13 +77,13 @@ struct ChatListRow: View {
                     Text(chat.lastMessage?.text ?? "Нет сообщений").font(.system(size: 14)).foregroundColor(.appTextSecondary).lineLimit(1)
                     Spacer()
                     if chat.unreadCount > 0 {
-                        Text("\(chat.unreadCount)").font(.system(size: 11, weight: .bold, design: .rounded)).foregroundColor(.white)
-                            .padding(.horizontal, 6).padding(.vertical, 2).background(Color.appAccent).clipShape(Capsule())
+                        Text("\(chat.unreadCount)").font(.system(size: 11, weight: .bold, design: .rounded)).foregroundColor(.black)
+                            .padding(.horizontal, 6).padding(.vertical, 2).background(Color.white).clipShape(Capsule())
                     }
                 }
             }
         }
         .padding(.horizontal, 20).padding(.vertical, 12)
-        Divider().background(Color.white.opacity(0.06)).padding(.leading, 84)
+        Divider().background(Color.appDivider).padding(.leading, 84)
     }
 }

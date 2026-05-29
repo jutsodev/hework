@@ -70,7 +70,7 @@ struct LiquidGlassTabBar: View {
                     )
             }
             .shadow(color: Color.black.opacity(0.3), radius: 10, y: 5)
-            .shadow(color: Color.purple.opacity(0.1), radius: 20, y: 5)
+            .shadow(color: Color.white.opacity(0.05), radius: 20, y: 5)
         )
         .padding(.horizontal, 16)
         .padding(.bottom, 2)
@@ -97,20 +97,20 @@ struct TabBarItem: View {
                     Image(systemName: isSelected ? tab.icon : tab.sfSymbol)
                         .font(.system(size: 22))
                         .symbolRenderingMode(.monochrome)
-                        .foregroundColor(isSelected ? .appAccent : .appTextSecondary)
+                        .foregroundColor(isSelected ? .white : .appTextSecondary)
                         .scaleEffect(scaleEffect)
                     if badgeCount > 0 {
                         Text(badgeCount > 99 ? "99+" : "\(badgeCount)")
                             .font(.system(size: 10, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .padding(.horizontal, 5).padding(.vertical, 2)
-                            .background(Color.appRed).clipShape(Capsule())
+                            .background(Color.white).clipShape(Capsule())
                             .offset(x: 10, y: -6)
                     }
                 }
                 Text(tab.rawValue)
                     .font(.system(size: 10, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(isSelected ? .appAccent : .appTextSecondary)
+                    .foregroundColor(isSelected ? .white : .appTextSecondary)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 6)

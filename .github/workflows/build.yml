@@ -23,16 +23,23 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: List project files
+      - name: Verify Project Structure
         run: |
           echo "=== Project Structure ==="
+          find HeWork -type f | sort
+          echo "=== Swift Files ==="
           find HeWork/HeWork -name "*.swift" | sort
-          echo "=== Xcode Project ==="
-          ls -la HeWork/HeWork.xcodeproj/
+          echo "=== Assets ==="
+          find HeWork/HeWork/Assets.xcassets -type f | sort
+          echo "=== Info.plist ==="
+          cat HeWork/HeWork/Info.plist
+          echo "=== pbxproj check ==="
+          plutil -lint HeWork/HeWork.xcodeproj/project.pbxproj || echo "pbxproj lint failed (may be normal for manual projects)"
 
       - name: Build iOS App (No Signing)
         run: |
           cd HeWork
+          set -o pipefail
           xcodebuild build \
             -project HeWork.xcodeproj \
             -scheme HeWork \
@@ -45,39 +52,41 @@ jobs:
             GENERATE_PROFILING_CODE=NO \
             ENABLE_NS_ASSERTIONS=NO \
             VALIDATE_PRODUCT=NO \
-            2>&1 | tail -30
+            GENERATE_INFOPLIST_FILE=YES \
+            SWIFT_VERSION=5.0 \
+            IPHONEOS_DEPLOYMENT_TARGET=17.0 \
+            2>&1 | tee build_log.txt | tail -50
 
       - name: Create IPA from Build
         run: |
           cd HeWork
-          # Find the built .app
+          echo "Searching for HeWork.app..."
           APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "HeWork.app" -path "*/Release-iphoneos/*" | head -1)
           echo "Found app at: $APP_PATH"
-
           if [ -z "$APP_PATH" ]; then
-            echo "Trying alternative path..."
+            echo "Trying alternative search..."
             APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "HeWork.app" | head -1)
             echo "Found app at: $APP_PATH"
           fi
-
           if [ -n "$APP_PATH" ]; then
-            # Create IPA
             mkdir -p build/ipa/Payload
             cp -R "$APP_PATH" build/ipa/Payload/
             cd build/ipa
             zip -r ../../HeWork.ipa Payload/
-            echo "✅ IPA created successfully!"
+            echo "IPA created successfully!"
             ls -la ../../HeWork.ipa
           else
-            echo "❌ App not found, creating placeholder"
-            mkdir -p build/ipa
-            echo "Build completed but .app not found" > build/ipa/build_log.txt
+            echo "App not found in DerivedData, checking build_log.txt for errors..."
+            cat build_log.txt | grep -i "error:" || true
+            echo "Creating placeholder IPA for artifact upload"
+            mkdir -p build/ipa/Payload
+            echo "Build output not found" > build/ipa/build_note.txt
           fi
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: HeWork
+          name: HeWork-IPA
           path: HeWork/HeWork.ipa
           retention-days: 30
           if-no-files-found: warn
@@ -87,7 +96,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-log
-          path: |
-            HeWork/build/ipa/build_log.txt
+          path: HeWork/build_log.txt
           retention-days: 7
           if-no-files-found: ignore
