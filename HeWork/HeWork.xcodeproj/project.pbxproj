@@ -1,8 +1,7 @@
 // !$*UTF8*$!
 {
 	archiveVersion = 1;
-	classes = {
-	};
+	classes = {};
 	objectVersion = 56;
 	objects = {
 
@@ -58,8 +57,7 @@
 		C10001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
-			);
+			files = ();
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -67,133 +65,24 @@
 /* Begin PBXGroup section */
 		D10001 = {
 			isa = PBXGroup;
-			children = (
-				D10002 /* HeWork */,
-				D10003 /* HeWorkTests */,
-				D10004 /* Products */,
-			);
+			children = (D10002);
 			sourceTree = "<group>";
 		};
 		D10002 /* HeWork */ = {
 			isa = PBXGroup;
 			children = (
-				B10001 /* HeWorkApp.swift */,
-				B10002 /* ContentView.swift */,
-				B10003 /* AppDelegate.swift */,
-				D10005 /* Models */,
-				D10006 /* Views */,
-				D10007 /* Services */,
-				D10008 /* ViewModels */,
-				D10009 /* Extensions */,
-				D10010 /* Resources */,
+				B10001, B10002, B10003, B10004, B10005, B10006, B10007, B10008,
+				B10009, B10010, B10011, B10012, B10013, B10014, B10015, B10016,
+				B10017, B10018, B10019, B10020, B10021,
+				D10003,
 			);
 			path = HeWork;
 			sourceTree = "<group>";
 		};
-		D10005 /* Models */ = {
+		D10003 /* Assets */ = {
 			isa = PBXGroup;
-			children = (
-				B10004 /* Models.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		D10006 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B10012 /* AuthFlowView.swift */,
-				D10011 /* Chat */,
-				D10012 /* Settings */,
-				D10013 /* Profile */,
-				D10014 /* Components */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		D10011 /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-				B10014 /* ChatListView.swift */,
-				B10015 /* ChatDetailView.swift */,
-				B10016 /* NearbyView.swift */,
-				B10017 /* ContactsView.swift */,
-			);
-			path = Chat;
-			sourceTree = "<group>";
-		};
-		D10012 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				B10018 /* SettingsView.swift */,
-				B10019 /* AppearanceView.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		D10013 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				B10020 /* ProfileView.swift */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		D10014 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				B10013 /* LiquidGlassTabBar.swift */,
-				B10021 /* SharedComponents.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		D10007 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				B10006 /* AuthService.swift */,
-				B10007 /* ChatService.swift */,
-				B10008 /* NotificationService.swift */,
-				B10009 /* ThemeManager.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		D10008 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				B10010 /* AuthViewModel.swift */,
-				B10011 /* ChatViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		D10009 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				B10005 /* Extensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		D10010 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		D10003 /* HeWorkTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HeWorkTests;
-			sourceTree = "<group>";
-		};
-		D10004 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
+			children = ();
+			path = Assets.xcassets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,15 +91,9 @@
 		E10001 /* HeWork */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F10003;
-			buildPhases = (
-				C10002 /* Sources */,
-				C10001 /* Frameworks */,
-				C10003 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
+			buildPhases = (C10002, C10001, C10003);
+			buildRules = ();
+			dependencies = ();
 			name = HeWork;
 			productName = HeWork;
 			productReference = G10001;
@@ -219,43 +102,27 @@
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		H10001 /* Project object */ = {
+		H10001 = {
 			isa = PBXProject;
-			attributes = {
-				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
-				TargetAttributes = {
-					E10001 = {
-						CreatedOnToolsVersion = 15.4;
-					};
-				};
-			};
+			attributes = { BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 1540; LastUpgradeCheck = 1540; };
 			buildConfigurationList = F10001;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = ru;
 			hasScannedForEncodings = 0;
-			knownRegions = (
-				ru,
-				en,
-				Base,
-			);
+			knownRegions = (ru, en, Base);
 			mainGroup = D10001;
-			productRefGroup = D10004;
+			productRefGroup = D10001;
 			projectDirPath = "";
 			projectRoot = "";
-			targets = (
-				E10001 /* HeWork */,
-			);
+			targets = (E10001);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C10003 /* Resources */ = {
+		C10003 = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
-			);
+			files = ();
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
@@ -265,27 +132,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10001 /* HeWorkApp.swift in Sources */,
-				A10002 /* ContentView.swift in Sources */,
-				A10003 /* AppDelegate.swift in Sources */,
-				A10004 /* Models.swift in Sources */,
-				A10005 /* Extensions.swift in Sources */,
-				A10006 /* AuthService.swift in Sources */,
-				A10007 /* ChatService.swift in Sources */,
-				A10008 /* NotificationService.swift in Sources */,
-				A10009 /* ThemeManager.swift in Sources */,
-				A10010 /* AuthViewModel.swift in Sources */,
-				A10011 /* ChatViewModel.swift in Sources */,
-				A10012 /* AuthFlowView.swift in Sources */,
-				A10013 /* LiquidGlassTabBar.swift in Sources */,
-				A10014 /* ChatListView.swift in Sources */,
-				A10015 /* ChatDetailView.swift in Sources */,
-				A10016 /* NearbyView.swift in Sources */,
-				A10017 /* ContactsView.swift in Sources */,
-				A10018 /* SettingsView.swift in Sources */,
-				A10019 /* AppearanceView.swift in Sources */,
-				A10020 /* ProfileView.swift in Sources */,
-				A10021 /* SharedComponents.swift in Sources */,
+				A10001, A10002, A10003, A10004, A10005, A10006, A10007, A10008,
+				A10009, A10010, A10011, A10012, A10013, A10014, A10015, A10016,
+				A10017, A10018, A10019, A10020, A10021,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,14 +157,10 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)");
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -327,7 +172,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
@@ -340,7 +184,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -356,14 +199,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HeWork/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "HeWork";
+				INFOPLIST_KEY_CFBundleDisplayName = HeWork;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.hework.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -382,14 +222,11 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HeWork/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "HeWork";
+				INFOPLIST_KEY_CFBundleDisplayName = HeWork;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.hework.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -402,21 +239,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F10001 /* Build configuration list for PBXProject "HeWork" */ = {
+		F10001 = {
 			isa = XCConfigurationList;
-			buildConfigurations = (
-				I10001 /* Debug */,
-				I10002 /* Release */,
-			);
+			buildConfigurations = (I10001, I10002);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F10003 /* Build configuration list for PBXNativeTarget "HeWork" */ = {
+		F10003 = {
 			isa = XCConfigurationList;
-			buildConfigurations = (
-				I10003 /* Debug */,
-				I10004 /* Release */,
-			);
+			buildConfigurations = (I10003, I10004);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};

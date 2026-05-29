@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -13,12 +14,4 @@ struct ContentView: View {
         }
         .animation(.easeInOut(duration: 0.4), value: authViewModel.isAuthenticated)
     }
-}
-
-#Preview {
-    ContentView()
-        .environmentObject(AuthViewModel())
-        .environmentObject(ChatViewModel())
-        .environmentObject(NotificationManager())
-        .environmentObject(ThemeManager())
 }

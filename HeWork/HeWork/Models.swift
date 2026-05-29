@@ -1,8 +1,6 @@
 import Foundation
 import SwiftUI
 
-// MARK: - User Model
-
 struct User: Identifiable, Codable, Equatable {
     let id: String
     var username: String
@@ -16,16 +14,10 @@ struct User: Identifiable, Codable, Equatable {
     var lastSeen: Date?
     var createdAt: Date
 
-    var displayName: String {
-        username.isEmpty ? handle : username
-    }
+    var displayName: String { username.isEmpty ? handle : username }
 
-    static func == (lhs: User, rhs: User) -> Bool {
-        lhs.id == rhs.id
-    }
+    static func == (lhs: User, rhs: User) -> Bool { lhs.id == rhs.id }
 }
-
-// MARK: - Chat Model
 
 struct Chat: Identifiable, Codable {
     let id: String
@@ -37,12 +29,8 @@ struct Chat: Identifiable, Codable {
     var groupName: String?
     var groupAvatarURL: String?
 
-    var chatName: String {
-        isGroup ? (groupName ?? "Группа") : ""
-    }
+    var chatName: String { isGroup ? (groupName ?? "Группа") : "" }
 }
-
-// MARK: - Message Model
 
 struct Message: Identifiable, Codable {
     let id: String
@@ -53,20 +41,9 @@ struct Message: Identifiable, Codable {
     var isRead: Bool
     var messageType: MessageType
 
-    enum MessageType: String, Codable {
-        case text
-        case image
-        case file
-        case voice
-        case system
-    }
-
-    var isCurrentUser: Bool {
-        senderId == AuthService.shared.currentUserId
-    }
+    enum MessageType: String, Codable { case text, image, file, voice, system }
+    var isCurrentUser: Bool { senderId == AuthService.shared.currentUserId }
 }
-
-// MARK: - Contact Model
 
 struct Contact: Identifiable, Codable {
     let id: String
@@ -76,21 +53,6 @@ struct Contact: Identifiable, Codable {
     var avatarURL: String?
     var isOnline: Bool
 }
-
-// MARK: - Verification Code Model
-
-struct VerificationCode: Codable {
-    let email: String
-    let code: String
-    let expiresAt: Date
-    let isVerified: Bool
-
-    var isExpired: Bool {
-        Date() > expiresAt
-    }
-}
-
-// MARK: - Theme Model
 
 struct AppTheme: Codable {
     var messageGradientStart: String
@@ -107,8 +69,6 @@ struct AppTheme: Codable {
         wallpaperName: nil
     )
 }
-
-// MARK: - Tab Model
 
 enum AppTab: String, CaseIterable {
     case chats = "Чаты"

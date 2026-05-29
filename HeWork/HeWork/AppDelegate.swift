@@ -1,9 +1,5 @@
 import UIKit
-import FirebaseCore
-import FirebaseMessaging
 import UserNotifications
-
-// MARK: - AppDelegate
 
 final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -11,20 +7,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        // Configure Firebase
-        FirebaseApp.configure()
-
-        // Set notification delegate
         UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
-
-        // Request notification authorization
-        Task {
-            _ = await NotificationManager.shared.requestAuthorization()
-        }
-
-        // Register for remote notifications
         application.registerForRemoteNotifications()
-
         return true
     }
 
@@ -32,8 +16,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
     ) {
-        Messaging.messaging().apnsToken = deviceToken
-        NotificationManager.shared.updateFCMToken()
+        // Token registered - send to server in production
     }
 
     func application(
@@ -43,14 +26,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         print("Failed to register for remote notifications: \(error)")
     }
 
-    // MARK: - UNUserNotificationCenterDelegate
-
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification
     ) async -> UNNotificationPresentationOptions {
-        let userInfo = notification.request.content.userInfo
-        Messaging.messaging().appDidReceiveMessage(userInfo)
         return [.banner, .sound, .badge]
     }
 
@@ -59,25 +38,16 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         didReceive response: UNNotificationResponse
     ) async {
         let userInfo = response.notification.request.content.userInfo
-        Messaging.messaging().appDidReceiveMessage(userInfo)
-
         if let chatId = userInfo["chatId"] as? String {
-            NotificationCenter.default.post(
-                name: .openChat,
-                object: nil,
-                userInfo: ["chatId": chatId]
-            )
+            NotificationCenter.default.post(name: .openChat, object: nil, userInfo: ["chatId": chatId])
         }
     }
 }
 
-// MARK: - MessagingDelegate
+final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+    static let shared = NotificationDelegate()
+}
 
-extension AppDelegate: MessagingDelegate {
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        if let token = fcmToken {
-            NotificationManager.shared.fcmToken = token
-            NotificationManager.shared.updateFCMToken()
-        }
-    }
+extension Notification.Name {
+    static let openChat = Notification.Name("openChat")
 }
